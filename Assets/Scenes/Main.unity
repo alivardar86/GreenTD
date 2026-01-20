@@ -653,8 +653,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   speed: 5
-  damage: 1
-  target: {fileID: 0}
 --- !u!58 &459711093
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -867,7 +865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af40990ade5b03642a7e230f944e92c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BaseHealth
-  lives: 10
+  startingLives: 10
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1034,7 +1032,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 749b86a0f6c746e4ba8ac71f5b0dcb15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GoldManager
-  gold: 0
+  startingGold: 0
 --- !u!4 &535658306
 Transform:
   m_ObjectHideFlags: 0
@@ -2138,6 +2136,7 @@ MonoBehaviour:
   - {fileID: 1185600909}
   - {fileID: 931538226}
   - {fileID: 2094464287}
+  totalWaves: 20
   enemiesPerWave: 5
   timeBetweenEnemies: 0.7
   timeBetweenWaves: 5
@@ -4502,6 +4501,10 @@ PrefabInstance:
     - target: {fileID: 552478212129618908, guid: 91f79d26539c2a3448440e7ef6d08691, type: 3}
       propertyPath: range
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 552478212129618908, guid: 91f79d26539c2a3448440e7ef6d08691, type: 3}
+      propertyPath: enemyLayer.m_Bits
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1793819060302919940, guid: 91f79d26539c2a3448440e7ef6d08691, type: 3}
       propertyPath: m_Name

@@ -1,16 +1,27 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Manages the Game Over UI panel and restart functionality
+/// </summary>
 public class GameOverUI : MonoBehaviour
 {
-    public static GameOverUI Instance;
+    public static GameOverUI Instance { get; private set; }
 
     [SerializeField] private GameObject panel;
 
     private void Awake()
     {
+        // Singleton pattern with duplicate prevention
+        if (Instance != null && Instance != this)
+        {
+            Debug.LogWarning("Duplicate GameOverUI detected! Destroying this instance.");
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
-        Hide(); // Oyun başında panel kapalı olsun
+        
+        Hide(); // Start with panel hidden
     }
 
     public void Show()
@@ -18,7 +29,7 @@ public class GameOverUI : MonoBehaviour
         if (panel != null)
             panel.SetActive(true);
 
-        // Oyunu durdur
+        // Pause game
         Time.timeScale = 0f;
     }
 
@@ -27,16 +38,16 @@ public class GameOverUI : MonoBehaviour
         if (panel != null)
             panel.SetActive(false);
 
-        // Zamanı normale döndür
+        // Resume game
         Time.timeScale = 1f;
     }
 
     public void Restart()
     {
-        // Restart'tan önce zamanı normale al
+        // Restore time scale before reloading
         Time.timeScale = 1f;
 
-        // Aktif sahneyi yeniden yükle
+        // Reload current scene
         Scene current = SceneManager.GetActiveScene();
         SceneManager.LoadScene(current.buildIndex);
     }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6457681277424628813}
   - component: {fileID: 5647875381749163122}
   - component: {fileID: 4843597805806831933}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bdcde98db8499541821c787816554e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  waypoints: []
   speed: 2
+  waypoints: []
   maxHealth: 2
+  goldReward: 1

@@ -1,46 +1,83 @@
 using UnityEngine;
 
+/// <summary>
+/// Manages the base/castle health and game over condition
+/// </summary>
 public class BaseHealth : MonoBehaviour
 {
-    public int lives = 10;
+    [SerializeField] private int startingLives = 10;
+    
+    private int currentLives;
     private bool isGameOver = false;
 
     private void Start()
     {
-        LivesUI.Instance.SetLives(lives);
+        currentLives = startingLives;
+        
+        if (LivesUI.Instance != null)
+        {
+            LivesUI.Instance.SetLives(currentLives);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Enemy"))
+        // Only process enemies
+        if (!collision.CompareTag(GameTags.Enemy))
             return;
 
+        // Destroy enemy even after game over to prevent stacking
         if (isGameOver)
         {
             Destroy(collision.gameObject);
             return;
         }
 
-        lives--;
+        // Take damage
+        currentLives--;
 
-        if (lives <= 0)
+        if (currentLives <= 0)
         {
-            lives = 0;
-            isGameOver = true;
-
-            LivesUI.Instance.SetLives(lives);
-            Debug.Log("GAME OVER!");
-
-            if (GameOverUI.Instance != null)
-            {
-                GameOverUI.Instance.Show();
-            }
+            HandleGameOver();
         }
         else
         {
-            LivesUI.Instance.SetLives(lives);
+            UpdateUI();
         }
 
         Destroy(collision.gameObject);
+    }
+
+    private void HandleGameOver()
+    {
+        currentLives = 0;
+        isGameOver = true;
+
+        UpdateUI();
+        
+        Debug.Log("GAME OVER!");
+
+        if (GameOverUI.Instance != null)
+        {
+            GameOverUI.Instance.Show();
+        }
+    }
+
+    private void UpdateUI()
+    {
+        if (LivesUI.Instance != null)
+        {
+            LivesUI.Instance.SetLives(currentLives);
+        }
+    }
+
+    public int GetCurrentLives()
+    {
+        return currentLives;
+    }
+
+    public bool IsGameOver()
+    {
+        return isGameOver;
     }
 }
